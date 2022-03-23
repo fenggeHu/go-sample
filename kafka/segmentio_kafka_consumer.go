@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-func main() {
+func segmentio_main() {
 	topic := "topic_hk_quote"
 	// make a new reader that consumes from topic-A, partition 0, at offset 42
 	r := kafka.NewReader(kafka.ReaderConfig{

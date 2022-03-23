@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func _main() {
+func main() {
 	c, err := kafka.NewConsumer(&kafka.ConfigMap{
 		"bootstrap.servers": "172.16.0.99:9092,172.16.0.99:9093",
 		"group.id":          "maxhu2022",
@@ -22,24 +22,24 @@ func _main() {
 	// 1W - 544.412399ms
 	// 10W -  1.684926912s
 	// 100W - 15.0426431s
-	i := 0
-	start := time.Now()
-	for i < 100000 {
-		_, _ = c.ReadMessage(1000 * time.Second)
-		i++
-	}
-	fmt.Println("总耗时：", time.Since(start))
+	//i := 0
+	//start := time.Now()
+	//for i < 100000 {
+	//	_, _ = c.ReadMessage(1000 * time.Second)
+	//	i++
+	//}
+	//fmt.Println("总耗时：", time.Since(start))
 
 	//
 	for {
 		//
-		msg, err := c.ReadMessage(1000 * time.Second)
+		m, err := c.ReadMessage(1000 * time.Second)
 		if err != nil {
-			fmt.Printf("Consumer error: %v (%v)\n", err, msg)
+			fmt.Printf("Consumer error: %v (%v)\n", err, m)
 		} else {
-			fmt.Printf("Message on %s: %s\n", msg.TopicPartition, msg.Value)
+			fmt.Printf("Offset[%s] - Partition[%d] - Value: %s\n", m.TopicPartition.Offset, m.TopicPartition.Partition, m.Value)
 		}
-		i++
+		//i++
 	}
 
 	c.Close()
