@@ -10,7 +10,7 @@ func main() {
 	c, err := kafka.NewConsumer(&kafka.ConfigMap{
 		"bootstrap.servers": "172.16.0.99:9092,172.16.0.99:9093",
 		"group.id":          "maxhu2022",
-		"auto.offset.reset": "earliest",
+		"auto.offset.reset": "latest", // 默认从最新消费
 	})
 	if err != nil {
 		panic(err)
@@ -42,5 +42,5 @@ func main() {
 		//i++
 	}
 
-	c.Close()
+	defer c.Close()
 }
