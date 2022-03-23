@@ -18,11 +18,20 @@ func main() {
 
 	c.SubscribeTopics([]string{"topic_hk_quote"}, nil)
 
+	// 测试耗时
+	// 1W - 544.412399ms
+	// 10W -  1.684926912s
+	// 100W - 15.0426431s
 	i := 0
+	start := time.Now()
+	for i < 100000 {
+		_, _ = c.ReadMessage(1000 * time.Second)
+		i++
+	}
+	fmt.Println("总耗时：", time.Since(start))
+
+	//
 	for {
-		if i > 100 {
-			break
-		}
 		//
 		msg, err := c.ReadMessage(1000 * time.Second)
 		if err != nil {
