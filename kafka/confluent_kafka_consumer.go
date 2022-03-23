@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func main() {
+func _main() {
 	c, err := kafka.NewConsumer(&kafka.ConfigMap{
 		"bootstrap.servers": "172.16.0.99:9092,172.16.0.99:9093",
 		"group.id":          "maxhu2022",
