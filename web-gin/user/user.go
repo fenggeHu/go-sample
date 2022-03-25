@@ -23,7 +23,7 @@ func (u *User) say(msg string) *Message {
 	return &ret
 }
 
-func UserSay(c *gin.Context) {
+func Say(c *gin.Context) {
 	action := c.Query("action")
 	if action != "say" {
 		c.JSON(http.StatusExpectationFailed, "Not Support")
