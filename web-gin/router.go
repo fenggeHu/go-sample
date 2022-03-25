@@ -7,8 +7,7 @@ import (
 
 // 路由
 // 来自gin example
-func router() *gin.Engine {
-	router := gin.Default()
+func defaultRouter(router *gin.Engine) {
 
 	// This handler will match /user/john but will not match /user/ or /user
 	router.GET("/user/:name", func(c *gin.Context) {
@@ -37,9 +36,4 @@ func router() *gin.Engine {
 	router.GET("/user/groups", func(c *gin.Context) {
 		c.String(http.StatusOK, "The available groups are [...]")
 	})
-
-	// my demo
-	router.GET("/user", UserSay)
-
-	return router
 }
