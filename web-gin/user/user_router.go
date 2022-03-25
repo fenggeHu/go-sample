@@ -1,9 +1,12 @@
 package user
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"go-sample/web-gin/middleware"
+)
 
 func RouterGroup(router *gin.Engine) {
-	userGroup := router.Group("/v1/user")
+	userGroup := router.Group("/v1/user").Use(middleware.HeaderHandler()).Use(middleware.PermissionHandler())
 	// my demo
 	userGroup.GET("/say", Say)
 }
