@@ -4,8 +4,8 @@ go 1.17
 
 require (
 	github.com/confluentinc/confluent-kafka-go v1.8.2
-	github.com/segmentio/kafka-go v0.4.30 // 额外引入了外部依赖
 	github.com/gin-gonic/gin v1.7.7
+	github.com/segmentio/kafka-go v0.4.30 // 额外引入了外部依赖
 )
 
 require (
