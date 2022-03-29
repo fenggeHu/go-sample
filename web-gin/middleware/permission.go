@@ -1,12 +1,12 @@
 package middleware
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
 )
 
 func PermissionHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		fmt.Println(c.GetHeader("Agent"))
+		log.Printf("PermissionHandler: %s", c.Request.Header)
 	}
 }
