@@ -37,6 +37,7 @@ func main() {
 		if err != nil {
 			fmt.Printf("Consumer error: %v (%v)\n", err, m)
 		} else {
+			//ms := time.Now().UnixMilli() - m.Value
 			fmt.Printf("Offset[%s] - Partition[%d] - Value: %s\n", m.TopicPartition.Offset, m.TopicPartition.Partition, m.Value)
 		}
 		//i++
