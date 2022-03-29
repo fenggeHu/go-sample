@@ -19,7 +19,7 @@ var upgrader = websocket.Upgrader{
 // TODO 开启了kafka消费后，导致ws断开
 // 使用gin -- 把gin-web升级为gin-websocket
 func main() {
-	//go consumer_start()
+	go consumer_start()
 
 	r := gin.Default()
 	//监听 get请求  /test路径

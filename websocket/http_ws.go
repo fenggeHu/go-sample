@@ -9,10 +9,10 @@ import (
 var addr = flag.String("addr", ":11888", "http service address")
 
 // http 的方式
-func __main() {
-	http.HandleFunc("/quote/list", httpSocketHandler)
-	log.Fatal(http.ListenAndServe(*addr, nil))
-}
+//func __main() {
+//	http.HandleFunc("/quote/list", httpSocketHandler)
+//	log.Fatal(http.ListenAndServe(*addr, nil))
+//}
 
 func httpSocketHandler(w http.ResponseWriter, r *http.Request) {
 	// Upgrade our raw HTTP connection to a websocket based one
