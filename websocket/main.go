@@ -16,7 +16,7 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-// TODO 开启了kafka消费后，导致ws断开，甚至应用挂掉 - 暂不知原因
+// TODO 开启了kafka消费后，导致ws断开
 // 使用gin -- 把gin-web升级为gin-websocket
 func main() {
 	//go consumer_start()

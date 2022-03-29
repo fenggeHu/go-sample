@@ -35,7 +35,7 @@ func consumer_start() {
 			l, _ := strconv.ParseFloat(strArray[6], 64)
 			c, _ := strconv.ParseFloat(strArray[7], 64)
 			response := &ResponseMessage{
-				Time:   int32(time),
+				Time:   int64(time),
 				Symbol: strArray[2],
 				Data:   []float64{o, h, l, c},
 			}

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
@@ -26,7 +25,7 @@ type clientManager struct {
 }
 
 type ResponseMessage struct {
-	Time   int32     `json:"time"`
+	Time   int64     `json:"time"`
 	Symbol string    `json:"symbol"`
 	Data   []float64 `json:"data"`
 }
@@ -44,10 +43,11 @@ func (c *wsClient) Read() {
 	for {
 		_, message, err := c.Socket.ReadMessage()
 		if err != nil {
-			log.Fatalln(err)
+			log.Println(err) // log.Fatal导致应用退出
 			break
 		}
 		c.Tags = string(message)
+		log.Printf("%s set Tag: %s", c.Socket.RemoteAddr(), c.Tags)
 	}
 }
 
@@ -63,37 +63,38 @@ func (c *wsClient) Write() {
 				c.Socket.WriteMessage(websocket.CloseMessage, []byte{})
 				return
 			}
-			msg, _ := json.Marshal(message)
-			c.Socket.WriteMessage(websocket.TextMessage, msg)
+			c.Socket.WriteJSON(message)
+			//msg, _ := json.Marshal(message)
+			//c.Socket.WriteMessage(websocket.TextMessage, msg)
 		}
 	}
 }
 
-// Start 启动 websocket 管理器
-func (manager *clientManager) Start() {
-	log.Printf("Websocket manage start")
-	//for {
-	//	select {
-	//	case client := <-manager.register:
-	//		log.Printf("Websocket client %s connect", client.ID)
-	//		if manager.client[client.ID] == nil {
-	//			manager.client[client.ID] = client
-	//		}
-	//
-	//	case client := <-manager.unRegister:
-	//		log.Printf("Unregister websocket client %s", client.ID)
-	//
-	//		//case data := <-manager.broadcast:
-	//		//	if groupMap, ok := manager.clientGroup[data.GroupID]; ok {
-	//		//		for _, conn := range groupMap {
-	//		//			conn.Send <- data.Data
-	//		//		}
-	//		//	}
-	//	}
-	//}
-
-	consumer_start()
-}
+//// Start 启动 websocket 管理器
+//func (manager *clientManager) Start() {
+//	log.Printf("Websocket manage start")
+//	//for {
+//	//	select {
+//	//	case client := <-manager.register:
+//	//		log.Printf("Websocket client %s connect", client.ID)
+//	//		if manager.client[client.ID] == nil {
+//	//			manager.client[client.ID] = client
+//	//		}
+//	//
+//	//	case client := <-manager.unRegister:
+//	//		log.Printf("Unregister websocket client %s", client.ID)
+//	//
+//	//		//case data := <-manager.broadcast:
+//	//		//	if groupMap, ok := manager.clientGroup[data.GroupID]; ok {
+//	//		//		for _, conn := range groupMap {
+//	//		//			conn.Send <- data.Data
+//	//		//		}
+//	//		//	}
+//	//	}
+//	//}
+//
+//	consumer_start()
+//}
 
 // RegisterClient 向 manage 中注册 client
 func (manager *clientManager) RegisterClient(c *gin.Context) {
