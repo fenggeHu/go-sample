@@ -37,7 +37,7 @@ func consumer_start() {
 			t, _ := strconv.ParseInt(strArray[3], 10, 64)
 			if count%50000 == 1 {
 				log.Printf("Kafka数据分区[%d] 生产时间: %d 消费时间差: %d", m.TopicPartition.Partition,
-					t, (time.Now().UnixMilli()-t)/1000)
+					t, time.Now().UnixMilli()-t)
 			}
 			o, _ := strconv.ParseFloat(strArray[4], 64)
 			h, _ := strconv.ParseFloat(strArray[5], 64)
