@@ -3,6 +3,9 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	"go-sample/kafka/quote"
+	"go-sample/web-gin/user"
+	"go-sample/websocket/ws"
 	"net/http"
 )
 
@@ -18,13 +21,17 @@ var upgrader = websocket.Upgrader{
 
 // 使用gin -- 把gin-web升级为gin-websocket
 func main() {
-	go tradeConsumer()
-	go quoteConsumer()
+	go quote.TradeConsumer()
+	go quote.SnapshotConsumer()
 
 	r := gin.Default()
 	//监听 get请求  /test路径
-	r.GET("/quote/list", quoteHandler) //升级为websocket后Use不起作用 .Use(middleware.PermissionHandler())
-	r.GET("/mock", mockSendHandler)    // mock数据能正常推送到订阅方
+	r.GET("/mock", mockSendHandler) // mock数据能正常推送到订阅方
+
+	// ws demo
+	ws.RouterGroup(r)
+	// user demo
+	user.RouterGroup(r)
 	r.Run(":11888")
 
 }

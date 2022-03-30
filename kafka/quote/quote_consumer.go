@@ -1,19 +1,17 @@
-package main
+package quote
 
 import (
 	"fmt"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/google/uuid"
+	"go-sample/websocket/ws"
 	"log"
 	"strconv"
 	"strings"
 	"time"
 )
 
-var TOPIC = []string{"topic_hk_trade"}
-
-// tick消费时间测试
-func tradeConsumer() {
+func SnapshotConsumer() {
 	c, err := kafka.NewConsumer(&kafka.ConfigMap{
 		"bootstrap.servers": "172.16.0.99:9092,172.16.0.99:9093",
 		"group.id":          "maxhu2022" + uuid.NewString(),
@@ -23,7 +21,7 @@ func tradeConsumer() {
 		panic(err)
 	}
 
-	c.SubscribeTopics(TOPIC, nil)
+	c.SubscribeTopics([]string{"topic_hk_quote"}, nil)
 	//c.Pause()
 	defer c.Close()
 
@@ -38,11 +36,21 @@ func tradeConsumer() {
 			//ms := time.Now().UnixMilli() - m.Value
 			//fmt.Printf("Offset[%s] - Partition[%d] - Value: %s\n", m.TopicPartition.Offset, m.TopicPartition.Partition, m.Value)
 			strArray := strings.Split(string(m.Value), ",")
-			t, _ := strconv.ParseInt(strArray[4], 10, 64)
+			t, _ := strconv.ParseInt(strArray[3], 10, 64)
 			if count%50000 == 1 {
-				log.Printf("tradeConsumer->第%d条Kafka数据分区[%d] 生产时间: %d 消费时间差: %d", count, m.TopicPartition.Partition,
+				log.Printf("quoteConsumer->第%d条Kafka数据分区[%d] 生产时间: %d 消费时间差: %d", count, m.TopicPartition.Partition,
 					t, time.Now().UnixMilli()-t)
 			}
+			o, _ := strconv.ParseFloat(strArray[4], 64)
+			h, _ := strconv.ParseFloat(strArray[5], 64)
+			l, _ := strconv.ParseFloat(strArray[6], 64)
+			c, _ := strconv.ParseFloat(strArray[7], 64)
+			response := &ws.ResponseMessage{
+				Time:   int64(t),
+				Symbol: strArray[2],
+				Data:   []float64{o, h, l, c},
+			}
+			ws.Manager.Send(response)
 		}
 		//time.Sleep(5)
 	}

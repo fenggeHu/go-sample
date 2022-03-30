@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"go-sample/websocket/ws"
 	"net/http"
 	"strconv"
 	"time"
@@ -50,12 +51,12 @@ func mockData(num int, sleep int) {
 	for i := 0; i < num; i++ {
 		inx := i % len(symbols)
 		gap := float64(inx)
-		response := &ResponseMessage{
+		response := &ws.ResponseMessage{
 			Time:   time.Now().UnixMilli(),
 			Symbol: symbols[inx],
 			Data:   []float64{100.12 + gap, 120.01 + gap, 90.8, 90.0 + gap/10},
 		}
-		WsManager.send(response)
+		ws.Manager.Send(response)
 		time.Sleep(time.Duration(sleep * 1000))
 	}
 }
