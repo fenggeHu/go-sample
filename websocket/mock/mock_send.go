@@ -1,4 +1,4 @@
-package main
+package mock
 
 import (
 	"github.com/gin-gonic/gin"
@@ -8,8 +8,8 @@ import (
 	"time"
 )
 
-// mock数据测试发送消息
-func mockSendHandler(c *gin.Context) {
+// MockSendHandler mock数据测试发送消息
+func MockSendHandler(c *gin.Context) {
 	val, b := c.GetQuery("num")
 	var num int
 	if !b {

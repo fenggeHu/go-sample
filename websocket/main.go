@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/websocket"
 	"go-sample/kafka/quote"
 	"go-sample/web-gin/user"
+	"go-sample/websocket/mock"
 	"go-sample/websocket/ws"
 	"net/http"
 )
@@ -26,7 +27,7 @@ func main() {
 
 	r := gin.Default()
 	//监听 get请求  /test路径
-	r.GET("/mock", mockSendHandler) // mock数据能正常推送到订阅方
+	r.GET("/mock", mock.MockSendHandler) // mock数据能正常推送到订阅方
 
 	// ws demo
 	ws.RouterGroup(r)
