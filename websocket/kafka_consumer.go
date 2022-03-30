@@ -21,6 +21,7 @@ func consumer_start() {
 	}
 
 	c.SubscribeTopics([]string{"topic_hk_quote"}, nil)
+	//c.Pause()
 	defer c.Close()
 
 	var count = 0
