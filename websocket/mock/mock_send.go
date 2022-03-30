@@ -8,8 +8,8 @@ import (
 	"time"
 )
 
-// MockSendHandler mock数据测试发送消息
-func MockSendHandler(c *gin.Context) {
+// mock数据测试发送消息
+func QuoteSendHandler(c *gin.Context) {
 	val, b := c.GetQuery("num")
 	var num int
 	if !b {

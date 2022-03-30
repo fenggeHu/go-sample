@@ -15,7 +15,7 @@ func main() {
 
 	r := gin.Default()
 	//监听 get请求  /test路径
-	r.GET("/mock", mock.MockSendHandler) // mock数据能正常推送到订阅方
+	r.GET("/mock", mock.QuoteSendHandler) // mock数据能正常推送到订阅方
 
 	// ws demo
 	ws.RouterGroup(r)
