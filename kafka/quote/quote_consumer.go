@@ -11,6 +11,7 @@ import (
 	"time"
 )
 
+// 行情快照
 func SnapshotConsumer() {
 	c, err := kafka.NewConsumer(&kafka.ConfigMap{
 		"bootstrap.servers": kafkaConfig["bootstrap.servers"],
