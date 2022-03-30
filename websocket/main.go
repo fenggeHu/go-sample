@@ -16,15 +16,15 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-// TODO 开启了kafka消费后，导致ws断开
 // 使用gin -- 把gin-web升级为gin-websocket
 func main() {
-	go consumer_start()
+	go tradeConsumer()
+	go quoteConsumer()
 
 	r := gin.Default()
 	//监听 get请求  /test路径
-	r.GET("/quote/list", quoteHandler)
-	r.GET("/mock", mockSendHandler) // mock数据能正常推送到订阅方
+	r.GET("/quote/list", quoteHandler) //升级为websocket后Use不起作用 .Use(middleware.PermissionHandler())
+	r.GET("/mock", mockSendHandler)    // mock数据能正常推送到订阅方
 	r.Run(":11888")
 
 }

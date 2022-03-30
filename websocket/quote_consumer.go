@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func consumer_start() {
+func quoteConsumer() {
 	c, err := kafka.NewConsumer(&kafka.ConfigMap{
 		"bootstrap.servers": "172.16.0.99:9092,172.16.0.99:9093",
 		"group.id":          "maxhu2022" + uuid.NewString(),
@@ -37,7 +37,7 @@ func consumer_start() {
 			strArray := strings.Split(string(m.Value), ",")
 			t, _ := strconv.ParseInt(strArray[3], 10, 64)
 			if count%50000 == 1 {
-				log.Printf("Kafka数据分区[%d] 生产时间: %d 消费时间差: %d", m.TopicPartition.Partition,
+				log.Printf("quoteConsumer->第%d条Kafka数据分区[%d] 生产时间: %d 消费时间差: %d", count, m.TopicPartition.Partition,
 					t, time.Now().UnixMilli()-t)
 			}
 			o, _ := strconv.ParseFloat(strArray[4], 64)

@@ -24,11 +24,11 @@ func (u *User) say(msg string) *Message {
 }
 
 func Say(c *gin.Context) {
-	action := c.Query("action")
-	if action != "say" {
-		c.JSON(http.StatusExpectationFailed, "Not Support")
-		return
-	}
+	//action := c.Query("action")
+	//if action != "say" {
+	//	c.JSON(http.StatusExpectationFailed, "Not Support")
+	//	return
+	//}
 
 	name := c.Query("name")
 	user := User{

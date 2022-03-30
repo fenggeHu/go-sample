@@ -43,7 +43,8 @@ func (c *wsClient) Read() {
 	for {
 		_, message, err := c.Socket.ReadMessage()
 		if err != nil {
-			log.Println(err) // log.Fatal导致应用退出
+			delete(WsManager.client, c.ID) // 正常或异常退出、断开连接等
+			log.Println(err)               // log.Fatal导致应用退出
 			break
 		}
 		c.Tags = string(message)
