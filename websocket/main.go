@@ -2,23 +2,11 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/gorilla/websocket"
+	"go-sample/api-gin/user"
 	"go-sample/kafka/quote"
-	"go-sample/web-gin/user"
 	"go-sample/websocket/mock"
 	"go-sample/websocket/ws"
-	"net/http"
 )
-
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:    1024,
-	WriteBufferSize:   1024,
-	EnableCompression: true,
-	// 解决跨域问题
-	CheckOrigin: func(r *http.Request) bool {
-		return true
-	},
-}
 
 // 使用gin -- 把gin-web升级为gin-websocket
 func main() {

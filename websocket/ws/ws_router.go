@@ -2,7 +2,7 @@ package ws
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-sample/web-gin/middleware"
+	"go-sample/api-gin/middleware"
 )
 
 func RouterGroup(router *gin.Engine) {

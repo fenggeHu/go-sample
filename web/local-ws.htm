@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<title>WebSocket测试页面</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+    </style>
+</head>
+<body>
+<div>
+    <input id='symbol' value='09988.hk'/>
+    <button type="button" onclick="sendData()">发送代码</button>
+    <p id="msg">发送结果</p>
+    <p id="receive"><br></p>
+</div>
+<script>
+function sendData(){
+    var symbol = document.getElementById('symbol').value;
+    window.chatWs.send(symbol);
+    document.getElementById("msg").innerHTML="发送结果："+symbol;
+}
+// 创建WebSocket连接:
+var ws = new WebSocket('ws://127.0.0.1:11888/ws/quote/list');
+// 连接成功时:
+ws.addEventListener('open', function (event) {
+    console.log('websocket connected.');
+	var inputText = '09988.hk';
+	window.chatWs.send(inputText);
+});
+// 收到消息时:
+ws.addEventListener('message', function (event) {
+    console.log('message: ' + event.data);
+    var msgs = JSON.parse(event.data);
+    // TODO:
+<!--    var o =document.getElementById("receive").innerHTML;-->
+    document.getElementById("receive").innerHTML=msgs.symbol+"/"+msgs.time+"/"+msgs.data+"<br>";
+});
+// 连接关闭时:
+ws.addEventListener('close', function () {
+    console.log('websocket closed.');
+});
+// 绑定到全局变量:
+window.chatWs = ws;
+</script>
+</body>
+</html>

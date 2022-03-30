@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-sample/web-gin/user"
+	"go-sample/api-gin/user"
 )
 
 func main() {

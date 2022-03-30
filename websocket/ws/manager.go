@@ -24,6 +24,16 @@ type ClientManager struct {
 	unRegister chan *Client
 }
 
+var upgrader = websocket.Upgrader{
+	ReadBufferSize:    1024,
+	WriteBufferSize:   1024,
+	EnableCompression: true,
+	// 解决跨域问题
+	CheckOrigin: func(r *http.Request) bool {
+		return true
+	},
+}
+
 // RegisterClient 向 manage 中注册 client
 func (manager *ClientManager) RegisterClient(c *gin.Context) {
 	handlers := c.HandlerNames()
