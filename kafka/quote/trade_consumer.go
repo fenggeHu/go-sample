@@ -3,6 +3,7 @@ package quote
 import (
 	"fmt"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"github.com/google/uuid"
 	"log"
 	"strconv"
 	"strings"
@@ -13,7 +14,11 @@ var TOPIC = []string{"topic_hk_trade"}
 
 // TradeConsumer tick消费时间测试
 func TradeConsumer() {
-	c, err := kafka.NewConsumer(config)
+	c, err := kafka.NewConsumer(&kafka.ConfigMap{
+		"bootstrap.servers": kafkaConfig["bootstrap.servers"],
+		"group.id":          kafkaConfig["group.id"] + uuid.NewString(),
+		"auto.offset.reset": kafkaConfig["auto.offset.reset"], // 默认从最新消费
+	})
 	if err != nil {
 		panic(err)
 	}
