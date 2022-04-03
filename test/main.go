@@ -1,20 +1,42 @@
 package main
 
-import (
-	"fmt"
-	"go-sample/test/fun"
-)
+import "fmt"
 
 // 在goland run时，不会主动编译main包下的其它文件， 所以把其它.go文件跟main分开
 // 但是通过go命令主动编译可以正常的，如go build *.go
 func main() {
-	who := fun.Who{} //  who := new(Who)
-	s, err := who.Say("hello")
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(s)
+	var p = new([]int) // allocates slice structure; *p == nil; rarely useful
+	fmt.Println("new([]int): ")
+	fmt.Println(p)
+	if *p == nil {
+		fmt.Println("*p == nil")
 	}
+	var v = make([]int, 12) // the slice v now refers to a new array of 100 ints
+	fmt.Println("make([]int, 12): ")
+	fmt.Println(v)
+
+	// Unnecessarily complex:
+	//var p2 = new([]int)
+	p2 := make([]int, 3, 20)
+	fmt.Println("make([]int, 3, 20): ")
+	fmt.Println(p2)
+
+	// Idiomatic:
+	//v = make([]int, 30)
+	//fmt.Println(v)
+
+	//for i := 0; i < 5; i++ {
+	//	// 延迟执行
+	//	defer fmt.Printf("for Loop: %d \n", i)
+	//}
+	//
+	//who := fun.Who{} //  who := new(Who)
+	//s, err := who.Say("hello")
+	//if err != nil {
+	//	fmt.Println(err)
+	//} else {
+	//	fmt.Println(s)
+	//}
 
 	//// if
 	//if f, err := os.OpenFile("/Users/hujinfeng/test/pom.xml", os.O_RDONLY, 0666); err != nil {
