@@ -7,13 +7,13 @@ import (
 
 // 下面receiver和selectChan都接收了c，但1条信息只消费1次
 func channelMain() {
-	c := make(chan string)
+	c := make(chan string, 100)
 	go ponger(c)
 	go receiver(c)
 	go sender("tag-c", c)
-	c2 := make(chan string)
+	c2 := make(chan string, 20)
 	//go sender("tag-c2", c2)
-	c3 := make(chan string)
+	c3 := make(chan string, 20)
 	//go sender("tag-c3", c3)
 	go selectChan(c, c2, c3)
 }
