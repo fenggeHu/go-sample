@@ -6,7 +6,9 @@ import "fmt"
 // 同样的逻辑比Java慢一个数量级？？？
 func main() {
 	//channelMain()
-	strMain()
+	//strMain()
+
+	//concurrencyMain()
 
 	var input string
 	fmt.Scanln(&input)
