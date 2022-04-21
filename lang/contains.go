@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+// 字符串Index与数组循环判断字符串耗时接近
+// 同样的逻辑比Java慢一个数量级？？？
 func containsMain() {
 	str := "65539.hk,63312.hk,56495.hk,52648.hk,09988.hk,56335.hk,69461.hk,62833.hk,00700.hk,03690.hk,01810.hk,03968.hk,06862.hk,02318.hk"
 	array := strings.Split(str, ",")
