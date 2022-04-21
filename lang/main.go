@@ -8,6 +8,8 @@ func main() {
 
 	//concurrencyMain()
 
+	lockMain()
+
 	var input string
 	fmt.Scanln(&input)
 }
