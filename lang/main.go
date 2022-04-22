@@ -8,7 +8,7 @@ func main() {
 
 	//concurrencyMain()
 
-	lockMain()
+	//lockMain()
 
 	var input string
 	fmt.Scanln(&input)
