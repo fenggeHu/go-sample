@@ -10,7 +10,13 @@ import (
 // The difference between these is that double quoted strings cannot contain newlines and they allow special escape sequences.
 // For example \n gets replaced with a newline and \t gets replaced with a tab character.
 func strMain() {
-	s := `hello world\n` // back ticks - no special sequences as you see
+	// back ticks - no special sequences as you see
+	s := `using back ticks like this: 
+	hello world,
+	
+	Welcome to go land!
+	The end.
+	`
 	fmt.Printf(`Str: %s, Len: %d\n`, s, len(s))
 	fmt.Println()
 	InOutPut()
