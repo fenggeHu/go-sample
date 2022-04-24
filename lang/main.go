@@ -5,7 +5,8 @@ import "fmt"
 func main() {
 	//controlMain()
 	//strMain()
-	mapsMain()
+	//mapsMain()
+	functionMain()
 	//channelMain()
 
 	//concurrencyMain()
