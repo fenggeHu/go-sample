@@ -1,10 +1,10 @@
 package main
 
-import "fmt"
-
 func main() {
-	num := FibonacciSequence(100)
-	fmt.Println(num)
+	//index := 100
+	//start := time.Now().UnixMilli()
+	//num := FibonacciSequence(int64(index))
+	//fmt.Printf("time over: %d, fib(%d)=%d", time.Now().UnixMilli()-start, index, num)
 
 	//controlMain()
 	//strMain()
