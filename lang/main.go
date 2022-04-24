@@ -3,9 +3,10 @@ package main
 import "fmt"
 
 func main() {
-	controlMain()
-	//channelMain()
+	//controlMain()
 	//strMain()
+	mapsMain()
+	//channelMain()
 
 	//concurrencyMain()
 
