@@ -6,7 +6,13 @@ import (
 	"strings"
 )
 
+// String literals can be created using double quotes "Hello World" or back ticks `Hello World`.
+// The difference between these is that double quoted strings cannot contain newlines and they allow special escape sequences.
+// For example \n gets replaced with a newline and \t gets replaced with a tab character.
 func strMain() {
+	s := `hello world\n` // back ticks - no special sequences as you see
+	fmt.Printf(`Str: %s, Len: %d\n`, s, len(s))
+	fmt.Println()
 	InOutPut()
 }
 

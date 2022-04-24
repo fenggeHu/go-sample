@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 	//channelMain()
-	//strMain()
+	strMain()
 
 	//concurrencyMain()
 
