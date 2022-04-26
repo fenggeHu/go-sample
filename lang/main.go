@@ -1,12 +1,20 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 )
 
 func main() {
-	parseArgs()
+
+	// new got point
+	buf := new(bytes.Buffer)
+	buf2 := bytes.Buffer{}
+	buf3 := &bytes.Buffer{}
+	fmt.Printf("buf: %p, buf2: %v, buf3: %p", buf, buf2, buf3)
+
+	//parseArgs()
 
 	//index := 100
 	//start := time.Now().UnixMilli()
