@@ -1,5 +1,7 @@
 package main
 
+//type Greet []byte		// 也可以
+
 type Greet struct {
 	p []byte
 }
