@@ -1,25 +1,25 @@
 package main
 
 import (
-	"bytes"
 	"flag"
 	"fmt"
+	"time"
 )
 
 func main() {
 
-	// new got point
-	buf := new(bytes.Buffer)
-	buf2 := bytes.Buffer{}
-	buf3 := &bytes.Buffer{}
-	fmt.Printf("buf: %p, buf2: %v, buf3: %p", buf, buf2, buf3)
+	//// new got point
+	//buf := new(bytes.Buffer)
+	//buf2 := bytes.Buffer{}
+	//buf3 := &bytes.Buffer{}
+	//fmt.Printf("buf: %p, buf2: %v, buf3: %p", buf, buf2, buf3)
 
 	//parseArgs()
 
-	//index := 100
-	//start := time.Now().UnixMilli()
-	//num := FibonacciSequence(int64(index))
-	//fmt.Printf("time over: %d, fib(%d)=%d", time.Now().UnixMilli()-start, index, num)
+	index := 50
+	start := time.Now()
+	num := FibonacciSequence(int64(index))
+	fmt.Printf("time over: %d, fib(%d)=%d\n", time.Since(start).Milliseconds(), index, num)
 
 	//controlMain()
 	//strMain()
