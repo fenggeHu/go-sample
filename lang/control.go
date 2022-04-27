@@ -25,6 +25,10 @@ func forIfMe() {
 			fmt.Printf("%d, its multiple of 10\n", i)
 		}
 	}
+
+	//for i := 0; i < 1e6; i++ {
+	//	// do something
+	//}
 }
 
 func switchMe() {
