@@ -1,19 +1,23 @@
 package main
 
 import (
+	"fmt"
+	"io/ioutil"
 	"log"
-	"os"
 )
 
 var basePath = "/Users/max/.qlib/qlib_data/cn_data"
 
 func main() {
 	features := basePath + "/features/sh600004/close.day.bin"
-	f, err := os.Open(features)
+	//f, err := os.Open(features)
+	//defer f.Close()
+	f, err := ioutil.ReadFile(features)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	defer f.Close()
+
+	fmt.Printf("%s", string(f))
 
 	//dense := mat.Dense{}
 	//n, err := dense.UnmarshalBinaryFrom(f)
