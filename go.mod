@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/confluentinc/confluent-kafka-go v1.8.2
+	github.com/gamexg/proxyclient v0.0.0-20210207161252-499908056324
 	github.com/gin-gonic/gin v1.7.7
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/websocket v1.5.0
@@ -18,6 +19,7 @@ replace github.com/henrylee2cn/pholcus_lib => ../pholcus_lib
 require (
 	github.com/DataDog/zstd v1.3.6-0.20190409195224-796139022798 // indirect
 	github.com/Shopify/sarama v1.23.1 // indirect
+	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
 	github.com/andybalholm/cascadia v1.0.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/eapache/go-resiliency v1.1.0 // indirect
@@ -49,6 +51,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20181016184325-3113b8401b8a // indirect
 	github.com/robertkrimen/otto v0.0.0-20180617131154-15f95af6e78d // indirect
+	github.com/shadowsocks/shadowsocks-go v0.0.0-20200409064450-3e585ff90601 // indirect
 	github.com/tidwall/gjson v1.14.1 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
@@ -59,6 +62,7 @@ require (
 	golang.org/x/text v0.3.5 // indirect
 	google.golang.org/appengine v1.6.1 // indirect
 	gopkg.in/Knetic/govaluate.v3 v3.0.0 // indirect
+	gopkg.in/bufio.v1 v1.0.0-20140618132640-567b2bfa514e // indirect
 	gopkg.in/jcmturner/aescts.v1 v1.0.1 // indirect
 	gopkg.in/jcmturner/dnsutils.v1 v1.0.1 // indirect
 	gopkg.in/jcmturner/gokrb5.v7 v7.2.3 // indirect
