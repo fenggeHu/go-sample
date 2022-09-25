@@ -1,25 +1,25 @@
 package main
 
-import "fmt"
-
 // 在goland run时，不会主动编译main包下的其它文件， 所以把其它.go文件跟main分开
 // 但是通过go命令主动编译可以正常的，如go build *.go
 func main() {
-	var p = new([]int) // allocates slice structure; *p == nil; rarely useful
-	fmt.Println("new([]int): ")
-	fmt.Println(p)
-	if *p == nil {
-		fmt.Println("*p == nil")
-	}
-	var v = make([]int, 12) // the slice v now refers to a new array of 100 ints
-	fmt.Println("make([]int, 12): ")
-	fmt.Println(v)
+	// xxx + yyy + zzz = aa * bc
 
-	// Unnecessarily complex:
-	//var p2 = new([]int)
-	p2 := make([]int, 3, 20)
-	fmt.Println("make([]int, 3, 20): ")
-	fmt.Println(p2)
+	//var p = new([]int) // allocates slice structure; *p == nil; rarely useful
+	//fmt.Println("new([]int): ")
+	//fmt.Println(p)
+	//if *p == nil {
+	//	fmt.Println("*p == nil")
+	//}
+	//var v = make([]int, 12) // the slice v now refers to a new array of 100 ints
+	//fmt.Println("make([]int, 12): ")
+	//fmt.Println(v)
+	//
+	//// Unnecessarily complex:
+	////var p2 = new([]int)
+	//p2 := make([]int, 3, 20)
+	//fmt.Println("make([]int, 3, 20): ")
+	//fmt.Println(p2)
 
 	// Idiomatic:
 	//v = make([]int, 30)
