@@ -1,6 +1,6 @@
 module go-sample
 
-go 1.17
+go 1.19
 
 require (
 	github.com/confluentinc/confluent-kafka-go v1.8.2
