@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/confluentinc/confluent-kafka-go v1.8.2
 	github.com/gin-gonic/gin v1.7.7
+	github.com/go-playground/assert/v2 v2.0.1
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/websocket v1.5.0
 	github.com/henrylee2cn/pholcus v1.3.4
