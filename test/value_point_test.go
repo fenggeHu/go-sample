@@ -9,7 +9,7 @@ import (
 func TestName(t *testing.T) {
 	v := Value{"张三", 18}
 	v1 := val(v)
-	v2 := point(&v)
+	v2 := gpoint(&v)
 
 	assert.NotEqual(t, v1, v2)
 }
@@ -26,7 +26,7 @@ func val(v Value) Value {
 	return v
 }
 
-func point(v *Value) Value {
+func gpoint(v *Value) Value {
 	v.Name += ".point"
 	v.Age += -1
 	return *v
