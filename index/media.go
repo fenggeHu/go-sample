@@ -53,7 +53,7 @@ func VideoInfo(name string, root string) *Video {
 
 func isVideo(fileType string) bool {
 	for _, v := range VideoType {
-		if v == fileType {
+		if strings.EqualFold(v, fileType) {
 			return true
 		}
 	}
