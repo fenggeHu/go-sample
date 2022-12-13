@@ -19,8 +19,9 @@ var (
 )
 
 const (
-	appDirName = "go-media"
-	dbFileName = "media.db"
+	appDirName   = "go-media"
+	dbFileName   = "media.db"
+	ResetOnStart = true
 )
 
 var cacheDir, _ = os.UserCacheDir()
@@ -45,23 +46,23 @@ func init() {
 		log.Println("Created App dir at", appDirPath)
 	}
 
-	// remove old database if exist
+	// create database if not exist
 	dbPath := getDBPath()
 	_, err := os.Stat(dbPath)
-	if !os.IsNotExist(err) {
+	if ResetOnStart {
 		log.Println("Obsolete DB detected, removing...")
 		if err = os.RemoveAll(dbPath); err != nil {
 			panic("Unable removing obsolete DB")
 		}
 	}
-
-	_, err = os.Create(dbPath)
-	if err != nil {
-		log.Println("Unable to init db file", err)
-		os.Exit(1)
+	if ResetOnStart || os.IsNotExist(err) {
+		_, err = os.Create(dbPath)
+		if err != nil {
+			log.Println("Unable to init db file", err)
+			os.Exit(1)
+		}
+		log.Println("DB initialized at", dbPath)
 	}
-
-	log.Println("DB initialized at", dbPath)
 
 	//vers = flag.Bool("v", false, "display the version.")
 	//help = flag.Bool("h", false, "print this help.")
@@ -94,7 +95,7 @@ func main() {
 		if video == nil {
 			continue
 		}
-		dbConn.Create(&repository.Movie{Video: *video})
+		dbConn.Create(&repository.Movie{Video: *video, Dir: baseDir})
 		log.Println(video)
 	}
 	end := time.Now().UnixNano()
@@ -105,9 +106,9 @@ func main() {
 
 	// This handler will match /user/john but will not match /user/ or /user
 	router.GET("/movie/list", func(c *gin.Context) {
-		var movie []repository.Movie
-		dbConn.Model(&repository.Movie{}).Find(&movie)
-		c.JSON(http.StatusOK, movie)
+		cate := c.Query("cate")
+		movies := repository.QMovies(dbConn, cate)
+		c.JSON(http.StatusOK, movies)
 	})
 
 	router.Run()
