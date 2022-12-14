@@ -10,11 +10,11 @@ require (
 	github.com/gorilla/websocket v1.5.0
 	github.com/henrylee2cn/pholcus v1.3.4
 	github.com/henrylee2cn/pholcus_lib v0.0.0-20180312025545-3ffb61273b75
-	github.com/jinzhu/gorm v1.9.16
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/kafka-go v0.4.30
-	github.com/slaveofcode/voodio v1.3.3
+	gorm.io/driver/sqlite v1.4.3
+	gorm.io/gorm v1.24.2
 )
 
 // 引入本地项目
@@ -41,6 +41,7 @@ require (
 	github.com/henrylee2cn/teleport v1.0.0 // indirect
 	github.com/jcmturner/gofork v0.0.0-20190328161633-dc7c13fece03 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/json-iterator/go v1.1.9 // indirect
 	github.com/klauspost/compress v1.14.2 // indirect
 	github.com/kr/beanstalk v0.0.0-20180818045031-cae1762e4858 // indirect

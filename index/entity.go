@@ -4,14 +4,15 @@ import "time"
 
 // 基本信息
 type Info struct {
-	Name     string `json:"name"`
-	Summary  string `json:"summary"`
-	Category string `json:"category"`
-	Path     string `json:"path"` // 绝对路径
-	Star     int    `json:"star"`
-	Size     int64  `json:"size"`
-	Type     string `json:"type"`
-	ModTime  time.Time
+	Name     string    `json:"name"`
+	Summary  string    `json:"summary"`
+	Category string    `json:"category"`
+	Path     string    `json:"path"` // 绝对路径
+	Star     int       `json:"star"`
+	Size     int64     `json:"size"`
+	Type     string    `json:"type"`
+	ModTime  time.Time `json:"modTime"` //文件的最近修改时间
+	Root     string    `json:"root"`    //配置的根路径
 }
 
 // 视频

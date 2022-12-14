@@ -1,4 +1,4 @@
-package repository
+package server
 
 type Config struct {
 	Name string

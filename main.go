@@ -2,13 +2,10 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-sample/index"
-	"go-sample/repository"
+	"go-sample/server"
 	"log"
-	"net/http"
 	"os"
 	"path/filepath"
-	"time"
 )
 
 var (
@@ -21,7 +18,7 @@ var (
 const (
 	appDirName   = "go-media"
 	dbFileName   = "media.db"
-	ResetOnStart = true
+	ResetOnStart = false
 )
 
 var cacheDir, _ = os.UserCacheDir()
@@ -74,42 +71,21 @@ func init() {
 }
 
 func main() {
-	dbConn, err := repository.OpenDB(getDBPath())
+	dbConn, err := server.OpenDB(getDBPath())
 	if err != nil {
 		cleanup()
 		panic("Unable to create DB connection:" + err.Error())
 	}
-
-	defer dbConn.Close()
-
+	//defer dbConn.Close()
 	log.Println("Preparing database...")
-	repository.Migrate(dbConn)
+	server.Migrate(dbConn)
 	log.Println("Database prepared")
+	// init db conn
+	server.InitMovieRepository(dbConn)
 
-	//test.Pi()
-	baseDir := "/Users/max/test"
-	start := time.Now().UnixNano()
-	files := index.Scan(baseDir)
-	for _, f := range files {
-		video := index.VideoInfo(f, baseDir)
-		if video == nil {
-			continue
-		}
-		dbConn.Create(&repository.Movie{Video: *video, Dir: baseDir})
-		log.Println(video)
-	}
-	end := time.Now().UnixNano()
-
-	log.Printf("%d, %d", (end-start)/1000000, len(files))
-
+	// api
 	router := gin.Default()
-
-	// This handler will match /user/john but will not match /user/ or /user
-	router.GET("/movie/list", func(c *gin.Context) {
-		cate := c.Query("cate")
-		movies := repository.QMovies(dbConn, cate)
-		c.JSON(http.StatusOK, movies)
-	})
+	server.MovieRouterGroup(router)
 
 	router.Run()
 }

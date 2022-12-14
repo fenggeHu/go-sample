@@ -1,16 +1,17 @@
-package repository
+package server
 
 import (
-	"github.com/jinzhu/gorm"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 	// dialect for sqlite
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	_ "gorm.io/driver/sqlite"
 	// sqlite driver
-	_ "github.com/mattn/go-sqlite3"
+	//_ "github.com/mattn/go-sqlite3"
 )
 
 // OpenDB will create new database connection to Sqlite
 func OpenDB(dbPath string) (*gorm.DB, error) {
-	db, err := gorm.Open("sqlite3", dbPath)
+	db, err := gorm.Open(sqlite.Open(dbPath))
 	if err != nil {
 		return nil, err
 	}

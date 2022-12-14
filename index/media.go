@@ -41,6 +41,7 @@ func VideoInfo(name string, root string) *Video {
 		Size:     stats.Size(),
 		Type:     filetype,
 		ModTime:  stats.ModTime(),
+		Root:     root,
 	}
 
 	return &Video{
