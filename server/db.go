@@ -22,6 +22,7 @@ func OpenDB(dbPath string) (*gorm.DB, error) {
 // Migrate will do migration of models
 func Migrate(db *gorm.DB) {
 	db.AutoMigrate(
+		&Config{},
 		&Movie{},
 		&Subtitle{},
 	)

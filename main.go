@@ -82,10 +82,12 @@ func main() {
 	log.Println("Database prepared")
 	// init db conn
 	server.InitMovieRepository(dbConn)
+	server.InitConfigRepository(dbConn)
 
 	// api
 	router := gin.Default()
 	server.MovieRouterGroup(router)
+	server.ConfigRouterGroup(router)
 
 	router.Run()
 }

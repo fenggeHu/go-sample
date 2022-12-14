@@ -7,12 +7,12 @@ type Info struct {
 	Name     string    `json:"name"`
 	Summary  string    `json:"summary"`
 	Category string    `json:"category"`
-	Path     string    `json:"path"` // 绝对路径
+	Path     string    `json:"path" gorm:"uniqueIndex"` // 绝对路径
 	Star     int       `json:"star"`
 	Size     int64     `json:"size"`
 	Type     string    `json:"type"`
-	ModTime  time.Time `json:"modTime"` //文件的最近修改时间
-	Root     string    `json:"root"`    //配置的根路径
+	ModTime  time.Time `json:"modTime"`           //文件的最近修改时间
+	Root     string    `json:"root" gorm:"index"` //配置的根路径
 }
 
 // 视频

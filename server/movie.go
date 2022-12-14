@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-sample/index"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 	"net/http"
 )
 
@@ -19,7 +20,7 @@ func InitMovieRepository(db *gorm.DB) {
 
 // Movie is Gorm model of movie
 type Movie struct {
-	//gorm.Model
+	gorm.Model
 	index.Video
 }
 
@@ -34,6 +35,10 @@ func (rep *MovieRepository) reset(root string) {
 		for _, o := range olds {
 			if o.Path == n.Path {
 				isNew = false
+				if o.DeletedAt.Valid {
+					o.DeletedAt = gorm.DeletedAt{}
+					news = append(news, o)
+				}
 			}
 		}
 		if isNew {
@@ -78,18 +83,24 @@ func (rep *MovieRepository) queryByCategory(category string) (ret []Movie) {
 }
 
 func (rep *MovieRepository) queryByRoot(root string) (ret []Movie) {
-	rep.db.Model(&Movie{}).Where("root = ?", root).Find(&ret)
+	rep.db.Unscoped().Model(&Movie{}).Where("root = ?", root).Find(&ret)
 	return
 }
 
 func (rep *MovieRepository) batchInsert(movie []Movie) {
-	rep.db.Model(&Movie{}).CreateInBatches(movie, 100)
+	rep.db.Clauses(clause.OnConflict{
+		UpdateAll: true,
+	}).Model(&Movie{}).CreateInBatches(movie, 100)
 }
 
 func (rep *MovieRepository) batchDelete(paths []string) {
 	rep.db.Where("path in (?)", paths).Delete(&Movie{})
 }
 
+func (rep *MovieRepository) remove(root string) (ret []string) {
+	rep.db.Delete(&Movie{}, "root = ?", root)
+	return
+}
 func (rep *MovieRepository) listRoot() (ret []string) {
 	rep.db.Model(&Movie{}).Distinct().Pluck("root", &ret)
 	return
@@ -118,8 +129,16 @@ func listRoot(c *gin.Context) {
 
 func indexMovies(c *gin.Context) {
 	root := c.Query("root")
-	//root := "/Users/max/test"
-	movieRepo.reset(root)
+	var configs []Config
+	if len(root) < 3 {
+		configs = configRepo.list()
+	} else {
+		configs = configRepo.query(root)
+	}
+
+	for _, v := range configs {
+		movieRepo.reset(v.Path)
+	}
 	c.String(http.StatusOK, "success")
 }
 func qMovieByCategory(c *gin.Context) {
