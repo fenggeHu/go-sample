@@ -83,12 +83,14 @@ func main() {
 	// init db conn
 	server.InitMovieRepository(dbConn)
 	server.InitConfigRepository(dbConn)
-
 	// api
 	router := gin.Default()
 	server.MovieRouterGroup(router)
 	server.ConfigRouterGroup(router)
 
+	// http play
+	go server.HttpServer(":9001")
+	//
 	router.Run()
 }
 

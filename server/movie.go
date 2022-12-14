@@ -5,7 +5,12 @@ import (
 	"go-sample/index"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
+	"io"
+	"log"
 	"net/http"
+	"os"
+	"strconv"
+	"time"
 )
 
 type MovieRepository struct {
@@ -74,6 +79,11 @@ func searchMovies(root string) (ret []Movie) {
 		}
 		ret = append(ret, Movie{Video: *video})
 	}
+	return
+}
+
+func (rep *MovieRepository) queryById(id uint) (ret Movie) {
+	rep.db.First(&ret, id)
 	return
 }
 
@@ -150,4 +160,50 @@ func qMovieByRoot(c *gin.Context) {
 	root := c.Query("root")
 	movies := movieRepo.queryByRoot(root)
 	c.JSON(http.StatusOK, movies)
+}
+
+func HttpServer(addr string) {
+	srv := http.Server{
+		Addr: addr,
+	}
+
+	http.HandleFunc("/movie/play", streamHandler)
+
+	srv.ListenAndServe()
+}
+func streamHandler(w http.ResponseWriter, r *http.Request) {
+	// 首次请求拿不到BasicAuth
+	//username, password, ok := r.BasicAuth()
+	//if !ok {
+	//	sendErrorResponse(w, http.StatusUnauthorized, "Basic Authorization failed")
+	//	return
+	//}
+	//if username != "max" || password != "hi12345" {
+	//	sendErrorResponse(w, http.StatusUnauthorized, "User/Password Error")
+	//	return
+	//}
+
+	id := r.URL.Query().Get("id")
+	uid, _ := strconv.Atoi(id)
+	movie := movieRepo.queryById(uint(uid))
+	if len(movie.Path) == 0 {
+		sendErrorResponse(w, http.StatusNotFound, "Basic Authorization failed")
+		return
+	}
+	video, err := os.Open(movie.Path)
+	if err != nil {
+		log.Printf("Error when try to open file: %v", err)
+		sendErrorResponse(w, http.StatusInternalServerError, "Internal Error")
+		return
+	}
+
+	w.Header().Set("Content-Type", "video/"+movie.Type[1:])
+	http.ServeContent(w, r, movie.Name, time.Now(), video)
+
+	//defer video.Close()
+}
+
+func sendErrorResponse(w http.ResponseWriter, sc int, errMsg string) {
+	w.WriteHeader(sc)
+	io.WriteString(w, errMsg)
 }
