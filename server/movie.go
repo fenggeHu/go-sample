@@ -196,7 +196,7 @@ func streamHandler(w http.ResponseWriter, r *http.Request) {
 		sendErrorResponse(w, http.StatusInternalServerError, "Internal Error")
 		return
 	}
-
+	log.Printf("play %s", movie.Name)
 	w.Header().Set("Content-Type", "video/"+movie.Type[1:])
 	http.ServeContent(w, r, movie.Name, time.Now(), video)
 
