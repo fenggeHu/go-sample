@@ -13,6 +13,10 @@ import (
 	"time"
 )
 
+func init() {
+	log.Printf("movie init: %s", time.Now())
+}
+
 type MovieRepository struct {
 	db *gorm.DB
 }
